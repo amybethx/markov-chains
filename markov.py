@@ -21,9 +21,12 @@ def make_chains(text_string):
 
     For example:
 
+
+
+
         >>> make_chains("hi there mary hi there juanita")
         {('hi', 'there'): ['mary', 'juanita'], ('there', 'mary'): ['hi'], ('mary', 'hi': ['there']}
-    """
+    """         
 
     chains = {}
     contents = text_string.split()
@@ -48,14 +51,19 @@ def make_chains(text_string):
     #return chains
 
 
-# def make_text(chains):
-#     """Takes dictionary of markov chains; returns random text."""
+def make_text(chains):
+    """Takes dictionary of markov chains; returns random text."""
 
-#     text = ""
-
-#     # your code goes here
-
-#     return text
+    new_key = choice(chains.keys())
+    text=" "
+    while new_key in chains:
+        list_of_valid_following_words = chains[new_key]
+        word = choice(list_of_valid_following_words) #sting
+        new_key = (new_key[1], word) #tuple
+        text=text + new_key[1] + " " + word + " "
+                                                             
+    return text
+    # your code goes hereprint text
 
 
 input_path = "green-eggs.txt"
@@ -65,7 +73,7 @@ input_text = open_and_read_file(input_path)
 
 # Get a Markov chain
 chains = make_chains(input_text)
-
+# print chains
 # Produce random text
 random_text = make_text(chains)
 
